@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - main
+      - team-latest-code
   pull_request:
     branches:
       - master
@@ -28,6 +29,15 @@ jobs:
 
       - name: Run tests with coverage
         run: npm run coverage
+
+      - name: Check coverage output
+        run: |
+          echo "Listing project files:"
+          ls -la
+          echo "Listing coverage folder:"
+          ls -la coverage || true
+          echo "Checking lcov.info:"
+          test -f coverage/lcov.info
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
